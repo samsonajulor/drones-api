@@ -1,7 +1,6 @@
 import { Response } from 'express';
 import { parse } from 'js2xmlparser';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
-import joi, { ValidationResult } from '@hapi/joi';
 import { logger } from '../config';
 import { applicationJsonType, applicationXmlType, APIResponseType } from '../@types';
 
@@ -40,10 +39,6 @@ const Tools = {
         res.status(StatusCodes.NOT_IMPLEMENTED).send(getReasonPhrase(StatusCodes.NOT_IMPLEMENTED));
       },
     });
-  },
-
-  validate(value: any, schema: joi.Schema): ValidationResult<any> {
-    return joi.validate(value, schema, { abortEarly: false, allowUnknown: true });
   },
 
   generateSerialNumber(): string {

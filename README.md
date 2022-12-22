@@ -40,7 +40,7 @@
 
 - Add the following validations when creating a medication:
 
-1. the name should only allow letters, numbers, - and \_.
+1. the name should only allow letters, numbers, - and _.
 2. code should only allow uppercase letters, underscore and numbers.
 
 - create the following services:
@@ -60,3 +60,4 @@
 6. add the middlewares to the routes
 7. create the services
 8. connect the service to the controllers
+9. when creating a drone, the default value should be IDLE

@@ -22,6 +22,7 @@ const drone = (sequelize: any, DataTypes: any): any => {
       state: {
         allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: 'IDLE',
       },
     },
     {}

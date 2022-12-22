@@ -1,0 +1,18 @@
+const isProduction = process.env.NODE_ENV === 'production';
+
+if (!isProduction) require('@babel/register');
+const path = require('path');
+
+module.exports = isProduction
+  ? {
+      config: path.resolve('./src/config', 'sequelize.config.ts'),
+      'models-path': path.resolve('./src/models'),
+      'seeders-path': path.resolve('./src/seeders'),
+      'migrations-path': path.resolve('./src/migrations'),
+    }
+  : {
+      config: path.resolve('./src/config', 'sequelize.config.ts'),
+      'models-path': path.resolve('./src/models'),
+      'seeders-path': path.resolve('./src/seeders'),
+      'migrations-path': path.resolve('./src/migrations'),
+    };

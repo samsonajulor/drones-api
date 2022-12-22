@@ -1,5 +1,5 @@
 import joi from 'joi';
-import { DroneType } from '../@types';
+import { DroneType, GenericType } from '../@types';
 
 const drone = {
   async addNewDrone(payload: DroneType) {
@@ -19,11 +19,11 @@ const drone = {
       state: joi
         .string()
         .valid('IDLE', 'LOADING', 'LOADED', 'DELIVERING', 'DELIVERED', 'RETURNING')
-        .required()
+        .optional()
         .label('state is required. List of valid states: IDLE, LOADING, LOADED, DELIVERING, DELIVERED, RETURNING'),
     });
-    const { error } = schema.validate(payload, { abortEarly: false, allowUnknown: true });
-    if (error) throw error.details[0];
+    const { error }: GenericType = schema.validate(payload);
+    if (error) throw error.details[0].context.label;
     return true;
   },
 };

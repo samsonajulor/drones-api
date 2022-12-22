@@ -1,7 +1,7 @@
 import { HttpStatusCode } from '../@types';
-import { BaseError } from './baseError';
+import BaseError from './baseError';
 
-export class APIError extends BaseError {
+export default class APIError extends BaseError {
   constructor(
     message: string,
     methodName = '',

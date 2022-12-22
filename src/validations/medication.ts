@@ -1,5 +1,5 @@
 import joi from 'joi';
-import { DroneType, GetMedicationType } from '../@types';
+import { DroneType, GenericType, GetMedicationType } from '../@types';
 
 const medication = {
   async addNewMedication(payload: DroneType) {
@@ -28,16 +28,19 @@ const medication = {
         .required()
         .label('code is required, must be alphanumeric, _ is allowed and must be uppercase.'),
     });
-    const { error } = schema.validate(payload, { abortEarly: false, allowUnknown: true });
-    if (error) throw error.details[0];
+    const { error }: GenericType = schema.validate(payload, { abortEarly: false, allowUnknown: true });
+    if (error) throw new Error(error.details[0].context.label);
     return true;
   },
   async getMedicationItems(payload: GetMedicationType) {
     const schema = joi.object({
       droneId: joi.string().required().label('droneId is required. must be a valid droneId'),
     });
-    const { error } = schema.validate(payload, { abortEarly: false, allowUnknown: true });
-    if (error) throw error.details[0];
+    const { error }: GenericType = schema.validate(payload, {
+      abortEarly: false,
+      allowUnknown: true,
+    });
+    if (error) throw new Error(error.details[0].context.label);
     return true;
   },
 };

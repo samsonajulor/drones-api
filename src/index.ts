@@ -22,7 +22,7 @@ app.use(express.json());
 
 app.set('trust proxy', 1);
 
-app.use('/v1.0/api', routes);
+app.use('/dispatch/v1.0/api', routes);
 
 if (!production) {
   app.use(errorhandler());

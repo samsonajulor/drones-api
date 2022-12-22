@@ -10,14 +10,15 @@ const DroneMiddleware = {
       await droneValidations.addNewDrone(req.body);
       next();
     } catch (error) {
+      console.error(error instanceof APIError);
       const response =
-        error instanceof APIError ? error.message || error : 'Some error occurred. Please contact support';
+        error instanceof APIError ? error : 'Some error occurred. Please contact support';
       return apiResponse(
         'inspectCreateDrone',
         res,
         RESPONSE.fail,
         HttpStatusCode.INTERNAL_SERVER_ERROR,
-        JSON.stringify(response, Object.getOwnPropertyNames(error)),
+        JSON.stringify(response, Object.getOwnPropertyNames(response))
       );
     }
   },

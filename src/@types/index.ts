@@ -25,7 +25,7 @@ export type DroneType = {
   model: string;
   weight: number;
   battery: number;
-  state: string;
+  state?: string;
 };
 
 export type MedicationType = {

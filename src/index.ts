@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import { exec } from 'child_process';
 import cookieParser from 'cookie-parser';
 import { env } from './config';
+import routes from './routes';
 
 const production = env.ENV === 'LIVE';
 
@@ -20,6 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.set('trust proxy', 1);
+
+app.use('/v1.0/api', routes);
 
 if (!production) {
   app.use(errorhandler());

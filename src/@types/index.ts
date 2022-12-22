@@ -33,4 +33,8 @@ export type MedicationType = {
   weight: number;
   code: string;
   image: string;
-}
+};
+
+export type GetMedicationType = {
+  droneId: string;
+};

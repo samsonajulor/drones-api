@@ -1,5 +1,5 @@
 import joi from 'joi';
-import { DroneType } from '../@types';
+import { DroneType, GetMedicationType } from '../@types';
 
 const medication = {
   async addNewMedication(payload: DroneType) {
@@ -32,14 +32,9 @@ const medication = {
     if (error) throw error.details[0];
     return true;
   },
-  async getMedicationItems(payload: DroneType) {
+  async getMedicationItems(payload: GetMedicationType) {
     const schema = joi.object({
-      droneId: joi
-        .string()
-        .required()
-        .label(
-          'droneId is required. must be a valid droneId'
-        ),
+      droneId: joi.string().required().label('droneId is required. must be a valid droneId'),
     });
     const { error } = schema.validate(payload, { abortEarly: false, allowUnknown: true });
     if (error) throw error.details[0];

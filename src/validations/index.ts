@@ -1,5 +1,5 @@
-import medicationValidations from './drone';
-import droneValidations from './medication';
+import medicationValidations from './medication';
+import droneValidations from './drone';
 
 export {
   medicationValidations,

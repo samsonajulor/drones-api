@@ -54,7 +54,7 @@
 
 1. initialize the express application
 2. create a postgres schema for drones and medications. drone can have many medications and a medication can only have one drone.
-3. add the types
+3. add the types and utils
 4. add the validations
 5. connect the validation to the middlewares
 6. add the middlewares to the routes

@@ -22,6 +22,7 @@ module.exports = {
       state: {
         allowNull: false,
         type: Sequelize.STRING,
+        defaultValue: 'IDLE'
       },
       createdAt: {
         allowNull: false,

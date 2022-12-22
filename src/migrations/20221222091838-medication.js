@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      serialNumber: {
+      droneSerialNumber: {
         allowNull: false,
         type: Sequelize.STRING,
       },

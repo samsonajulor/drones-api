@@ -49,7 +49,7 @@ const medication = (sequelize: any, DataTypes: any): any => {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      serialNumber: {
+      droneSerialNumber: {
         allowNull: false,
         type: DataTypes.STRING,
       },

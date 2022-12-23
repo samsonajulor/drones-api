@@ -25,7 +25,7 @@ const Tools = {
       responseMessage: message,
       details: JSON.parse(data),
     };
-    logger(action, message);
+    logger(action, data);
     return res.format({
       json: () => {
         res.type(applicationJsonType);

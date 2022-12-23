@@ -14,7 +14,7 @@ const medication = (sequelize: any, DataTypes: any): any => {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      serialNumber: {
+      droneSerialNumber: {
         allowNull: false,
         type: DataTypes.STRING,
       },
@@ -27,7 +27,7 @@ const medication = (sequelize: any, DataTypes: any): any => {
         type: DataTypes.STRING,
       },
       image: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING,
       },
     },
@@ -62,7 +62,7 @@ const medication = (sequelize: any, DataTypes: any): any => {
         type: DataTypes.STRING,
       },
       image: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING,
       },
     },

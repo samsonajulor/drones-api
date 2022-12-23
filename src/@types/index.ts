@@ -29,12 +29,14 @@ export type DroneType = {
 };
 
 export type MedicationType = {
+  medicationId: string;
+  droneSerialNumber?: string;
   name: string;
   weight: number;
   code: string;
-  image: string;
+  image?: string;
 };
 
 export type GetMedicationType = {
-  droneId: string;
+  droneSerialNumber: string;
 };

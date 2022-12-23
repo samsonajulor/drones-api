@@ -39,6 +39,7 @@
     "sequelize": "5.8.5",
     "sequelize-cli": "5.4.0",
     "ts-node": "^10.9.1",
+    "uuid": "^8.3.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -62,6 +63,7 @@
     "@types/node": "^12.7.8",
     "@types/pg": "7.14.10",
     "@types/sequelize": "4.28.14",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^4.0.1",
     "eslint": "^7.2.0",

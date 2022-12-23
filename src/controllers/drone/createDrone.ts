@@ -11,13 +11,16 @@ async function createDrone(req: Request, res: Response) {
     const newDrone = await DroneService.createDrone({ serialNumber, model, weight: 0, battery, state: 'IDLE' });
     return apiResponse('createDrone', res, RESPONSE.success, HttpStatusCode.OK, JSON.stringify(newDrone), 'drone created successfully');
   } catch (error) {
+      const httpCode = error instanceof BaseError ? error.httpCode : HttpStatusCode.INTERNAL_SERVER_ERROR;
       const response =
-        error instanceof BaseError ? error.message : error;
+        error instanceof BaseError
+          ? error.message || error
+          : 'Some error occurred. Please contact support';
       return apiResponse(
-        'inspectCreateDrone',
+        'createDrone',
         res,
         RESPONSE.fail,
-        HttpStatusCode.INTERNAL_SERVER_ERROR,
+        httpCode,
         JSON.stringify(response, Object.getOwnPropertyNames(response)),
         'creating drone api error'
       );

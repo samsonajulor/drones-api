@@ -10,7 +10,8 @@ const DroneService = {
       const newDrone = await Drone.create(droneData);
       return newDrone;
     } catch (error) {
-      throw new BaseError('error from the drone service', error, 'createDrone', 500);
+      const httpCode = error instanceof BaseError ? error.httpCode : 500;
+      throw new BaseError('error from the drone service', error, 'createDrone', httpCode);
     }
   },
   async getIdleDrones() {
@@ -22,7 +23,8 @@ const DroneService = {
       });
       return idleDrones;
     } catch (error) {
-      throw new BaseError('error from the drone service', error, 'getIdleDrones', 500);
+      const httpCode = error instanceof BaseError ? error.httpCode : 500;
+      throw new BaseError('error from the drone service', error, 'getIdleDrones', httpCode);
     }
   },
   async getDroneBySerialNumber(serialNumber: string) {
@@ -32,9 +34,17 @@ const DroneService = {
           serialNumber,
         },
       });
+      if (!droneFound)
+        throw new BaseError(
+          'error from the drone service',
+          'Drone not found',
+          'updateDroneBattery',
+          404
+        );
       return droneFound;
     } catch (error) {
-      throw new BaseError('error from the drone service', error, 'getDroneBySerialNumber', 500);
+      const httpCode = error instanceof BaseError ? error.httpCode : 500;
+      throw new BaseError('error from the drone service', error, 'getDroneBySerialNumber', httpCode);
     }
   },
   async updateDroneState(serialNumber: string, state: string) {
@@ -56,7 +66,8 @@ const DroneService = {
       });
       return droneFound;
     } catch (error) {
-      throw new BaseError('error from the drone service', error, 'updateDroneState', 500);
+      const httpCode = error instanceof BaseError ? error.httpCode : 500;
+      throw new BaseError('error from the drone service', error, 'updateDroneState', httpCode);
     }
   },
   async updateDroneBattery(serialNumber: string, battery: number) {
@@ -78,7 +89,8 @@ const DroneService = {
       });
       return droneFound;
     } catch (error) {
-      throw new BaseError('error from the drone service', error, 'updateDroneBattery', 500);
+      const httpCode = error instanceof BaseError ? error.httpCode : 500;
+      throw new BaseError('error from the drone service', error, 'updateDroneBattery', httpCode);
     }
   },
   async getFreeDrone(weight: number) {
@@ -86,11 +98,13 @@ const DroneService = {
       const size = 500 - weight;
       const freeDrone = await Drone.findOne({
         where: {
-          state: 'IDLE',
           weight: {
             [db.Sequelize.Op.lte]: size,
           },
+          state: {
+            [db.Sequelize.Op.or]: ['IDLE', 'LOADING'],
         },
+      },
       });
       if (!freeDrone)
         throw new BaseError(
@@ -103,12 +117,13 @@ const DroneService = {
         state: 'LOADING',
       });
       return freeDrone;
-    } catch (error) {
+    } catch (error: any) {
+      const httpCode = error instanceof BaseError ? error.httpCode : 500;
       throw new BaseError(
         'error from the medication service',
         error,
         'attachMedicationToDrone',
-        500
+        httpCode
       );
     }
   },

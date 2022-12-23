@@ -3,22 +3,26 @@ import { BaseError } from '../utils';
 import { MedicationType } from '../@types';
 import DroneService from './drone';
 
-const { medication } = db;
+const { Medication } = db;
 
 const MedicationService = {
-  async createMedication(medicationData: MedicationType) {
+  async loadDroneWithMedication(medicationData: MedicationType) {
     try {
       const freeDrone = await DroneService.getFreeDrone(medicationData.weight);
-      const newMedication = await medication.create({
+      /** medication can be safely loaded cos there was a weight check by the function above */
+      await Medication.create({
         ...medicationData,
         droneSerialNumber: freeDrone.serialNumber,
       });
+      const weight = medicationData.weight + freeDrone.weight;
       await freeDrone.update({
-        state: 'LOADED',
+        state: weight === 500 ? 'LOADED' : 'LOADING',
+        weight,
       });
-      return newMedication;
+      return freeDrone;
     } catch (error) {
-      throw new BaseError('error from the medication service', error, 'createMedication', 500);
+      const httpCode = error instanceof BaseError ? error.httpCode : 500;
+      throw new BaseError('error from the medication service', error, 'createMedication', httpCode);
     }
   },
 };

@@ -11,7 +11,7 @@ const DroneMiddleware = {
       next();
     } catch (error) {
       const response =
-        error instanceof BaseError ? error.message : 'Some error occurred. Please contact support';
+        error instanceof BaseError ? error.message || error : 'Some error occurred. Please contact support';
       return apiResponse(
         'inspectCreateDrone',
         res,

@@ -5,6 +5,11 @@ import { BaseError } from '../utils';
 const drone = {
   async updateDrone(payload: DroneType) {
     const schema = joi.object({
+      serialNumber: joi
+        .string()
+        .max(100)
+        .required()
+        .label('serialNumber is required. length must be <= 100 characters.'),
       model: joi
         .string()
         .valid('Lightweight', 'Middleweight', 'Cruiserweight', 'Heavyweight')

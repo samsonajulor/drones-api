@@ -18,7 +18,9 @@ const DroneService = {
     try {
       const idleDrones = await Drone.findAll({
         where: {
-          state: 'IDLE',
+          state: {
+            [db.Sequelize.Op.or]: ['IDLE', 'LOADING'],
+          },
         },
       });
       return idleDrones;

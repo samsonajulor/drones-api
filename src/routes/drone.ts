@@ -6,6 +6,6 @@ import { DroneMiddleware } from '../middlewares';
 const router = Router();
 
 router.post('/', DroneMiddleware.inspectCreateDrone, droneController.createDrone);
-router.get('/idle',);
+router.get('/idle', droneController.getAvailableDrones);
 
 export default router;

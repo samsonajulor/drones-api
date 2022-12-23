@@ -1,7 +1,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Drone', {
+    await queryInterface.createTable('Drones', {
       serialNumber: {
         allowNull: false,
         type: Sequelize.STRING,
@@ -35,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface) {
-    await queryInterface.dropTable('Drone');
+    await queryInterface.dropTable('Drones');
   },
 };

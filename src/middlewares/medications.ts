@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { APIError, HttpStatusCode, Toolbox } from '../utils';
+import { BaseError, HttpStatusCode, Toolbox } from '../utils';
 import { medicationValidations } from '../validations';
 import { GetMedicationType } from '../@types';
 
@@ -12,15 +12,14 @@ const MedicationMiddleware = {
       next();
     } catch (error) {
       const response =
-        error instanceof APIError
-          ? error.message || error
-          : 'Some error occurred. Please contact support';
+        error instanceof BaseError ? error.message : 'Some error occurred. Please contact support';
       return apiResponse(
         'inspectCreateDrone',
         res,
         RESPONSE.fail,
         HttpStatusCode.INTERNAL_SERVER_ERROR,
-        JSON.stringify(response, Object.getOwnPropertyNames(error))
+        JSON.stringify(response, Object.getOwnPropertyNames(response)),
+        'validation failed'
       );
     }
   },
@@ -30,15 +29,14 @@ const MedicationMiddleware = {
       next();
     } catch (error) {
       const response =
-        error instanceof APIError
-          ? error.message || error
-          : 'Some error occurred. Please contact support';
+        error instanceof BaseError ? error.message : 'Some error occurred. Please contact support';
       return apiResponse(
         'inspectCreateDrone',
         res,
         RESPONSE.fail,
         HttpStatusCode.INTERNAL_SERVER_ERROR,
-        JSON.stringify(response, Object.getOwnPropertyNames(error))
+        JSON.stringify(response, Object.getOwnPropertyNames(response)),
+        'validation failed'
       );
     }
   },

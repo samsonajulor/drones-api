@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { APIError, HttpStatusCode, Toolbox } from '../utils';
+import { BaseError, HttpStatusCode, Toolbox } from '../utils';
 import { droneValidations } from '../validations';
 
 const { apiResponse, RESPONSE } = Toolbox;
@@ -10,15 +10,15 @@ const DroneMiddleware = {
       await droneValidations.addNewDrone(req.body);
       next();
     } catch (error) {
-      console.error(error instanceof APIError);
       const response =
-        error instanceof APIError ? error : 'Some error occurred. Please contact support';
+        error instanceof BaseError ? error.message : 'Some error occurred. Please contact support';
       return apiResponse(
         'inspectCreateDrone',
         res,
         RESPONSE.fail,
         HttpStatusCode.INTERNAL_SERVER_ERROR,
-        JSON.stringify(response, Object.getOwnPropertyNames(response))
+        JSON.stringify(response, Object.getOwnPropertyNames(response)),
+        'validation failed'
       );
     }
   },

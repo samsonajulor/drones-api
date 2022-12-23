@@ -2,12 +2,12 @@ import db from '../models';
 import { BaseError } from '../utils';
 import { DroneType } from '../@types';
 
-const { drone } = db;
+const { Drone } = db;
 
 const DroneService = {
   async createDrone(droneData: DroneType) {
     try {
-      const newDrone = await drone.create(droneData);
+      const newDrone = await Drone.create(droneData);
       return newDrone;
     } catch (error) {
       throw new BaseError('error from the drone service', error, 'createDrone', 500);
@@ -15,7 +15,7 @@ const DroneService = {
   },
   async getIdleDrones() {
     try {
-      const idleDrones = await drone.findAll({
+      const idleDrones = await Drone.findAll({
         where: {
           state: 'IDLE',
         },
@@ -27,7 +27,7 @@ const DroneService = {
   },
   async getDroneBySerialNumber(serialNumber: string) {
     try {
-      const droneFound = await drone.findOne({
+      const droneFound = await Drone.findOne({
         where: {
           serialNumber,
         },
@@ -39,7 +39,7 @@ const DroneService = {
   },
   async updateDroneState(serialNumber: string, state: string) {
     try {
-      const droneFound = await drone.findOne({
+      const droneFound = await Drone.findOne({
         where: {
           serialNumber,
         },
@@ -61,7 +61,7 @@ const DroneService = {
   },
   async updateDroneBattery(serialNumber: string, battery: number) {
     try {
-      const droneFound = await drone.findOne({
+      const droneFound = await Drone.findOne({
         where: {
           serialNumber,
         },
@@ -84,7 +84,7 @@ const DroneService = {
   async getFreeDrone(weight: number) {
     try {
       const size = 500 - weight;
-      const freeDrone = await drone.findOne({
+      const freeDrone = await Drone.findOne({
         where: {
           state: 'IDLE',
           weight: {

@@ -35,7 +35,7 @@ const medication = (sequelize: any, DataTypes: any): any => {
   );
 
   Medication.associate = (models: any): void => {
-    Medication.belongsTo(models.Drone, { foreignKey: 'serialNumber' });
+    Medication.belongsTo(models.Drone, { foreignKey: 'droneSerialNumber' });
   };
   Medication.init(
     {

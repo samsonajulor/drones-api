@@ -6,7 +6,7 @@ import DroneService from './drone';
 const { Medication } = db;
 
 const MedicationService = {
-  async loadDroneWithMedication(medicationData: MedicationType) {
+  async loadMedication(medicationData: MedicationType) {
     try {
       const freeDrone = await DroneService.getFreeDrone(medicationData.weight);
       /** medication can be safely loaded cos there was a weight check by the function above */
@@ -25,7 +25,7 @@ const MedicationService = {
       throw new BaseError('error from the medication service', error, 'createMedication', httpCode);
     }
   },
-  async getMedicationByDroneSerialNumber(serialNumber: string) {
+  async getMedicationBySerialNumber(serialNumber: string) {
     try {
       const medicationFound = await Medication.findAll({
         where: {

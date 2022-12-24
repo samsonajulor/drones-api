@@ -6,7 +6,7 @@ import { GetMedicationType } from '../@types';
 const { apiResponse, RESPONSE } = Toolbox;
 
 const MedicationMiddleware = {
-  async inspectCreateMedication(req: Request, res: Response, next: NextFunction) {
+  async inspectCreate(req: Request, res: Response, next: NextFunction) {
     try {
       await medicationValidations.addNewMedication(req.body);
       next();
@@ -14,7 +14,7 @@ const MedicationMiddleware = {
       const response =
         error instanceof BaseError ? error.message || error : 'Some error occurred. Please contact support';
       return apiResponse(
-        'inspectCreateDrone',
+        'inspectCreate',
         res,
         RESPONSE.fail,
         HttpStatusCode.INTERNAL_SERVER_ERROR,
@@ -31,7 +31,7 @@ const MedicationMiddleware = {
       const response =
         error instanceof BaseError ? error.message : 'Some error occurred. Please contact support';
       return apiResponse(
-        'inspectCreateDrone',
+        'inspectCreate',
         res,
         RESPONSE.fail,
         HttpStatusCode.INTERNAL_SERVER_ERROR,

@@ -5,17 +5,17 @@ import { MedicationService } from '../../service';
 
 const { apiResponse, RESPONSE } = Toolbox;
 
-async function loadDroneWithMedication(req: Request, res: Response) {
+async function loadMedication(req: Request, res: Response) {
   try {
     const { name, weight, code } = req.body;
-    const drone = await MedicationService.loadDroneWithMedication({
+    const drone = await MedicationService.loadMedication({
      medicationId: uuidv4(),
      name,
      weight,
      code,
     });
     return apiResponse(
-      'loadDroneWithMedication',
+      'loadMedication',
       res,
       RESPONSE.success,
       HttpStatusCode.OK,
@@ -30,7 +30,7 @@ async function loadDroneWithMedication(req: Request, res: Response) {
         ? error.message || error
         : 'Some error occurred. Please contact support';
     return apiResponse(
-      'loadDroneWithMedication',
+      'loadMedication',
       res,
       RESPONSE.fail,
       httpCode,
@@ -40,4 +40,4 @@ async function loadDroneWithMedication(req: Request, res: Response) {
   }
 }
 
-export default loadDroneWithMedication;
+export default loadMedication;

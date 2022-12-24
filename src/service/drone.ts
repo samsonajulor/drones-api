@@ -5,13 +5,13 @@ import { DroneType } from '../@types';
 const { Drone } = db;
 
 const DroneService = {
-  async createDrone(droneData: DroneType) {
+  async create(droneData: DroneType) {
     try {
       const newDrone = await Drone.create(droneData);
       return newDrone;
     } catch (error) {
       const httpCode = error instanceof BaseError ? error.httpCode : 500;
-      throw new BaseError('error from the drone service', error, 'createDrone', httpCode);
+      throw new BaseError('error from the drone service', error, 'create', httpCode);
     }
   },
   async getIdleDrones() {

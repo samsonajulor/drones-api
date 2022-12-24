@@ -4,9 +4,9 @@ import { MedicationService } from '../../service';
 
 const { apiResponse, RESPONSE } = Toolbox;
 
-async function getMedicationByDroneSerialNumber(req: Request, res: Response) {
+async function getMedicationBySerialNumber(req: Request, res: Response) {
   try {
-    const medicationItems = await MedicationService.getMedicationByDroneSerialNumber(
+    const medicationItems = await MedicationService.getMedicationBySerialNumber(
       req.params.droneSerialNumber
     );
     return apiResponse(
@@ -35,4 +35,4 @@ async function getMedicationByDroneSerialNumber(req: Request, res: Response) {
   }
 }
 
-export default getMedicationByDroneSerialNumber;
+export default getMedicationBySerialNumber;

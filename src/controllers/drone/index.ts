@@ -1,13 +1,13 @@
-import createDrone from "./createDrone";
-import loadDroneWithMedication from "./loadDroneWithMedication";
+import create from "./create";
+import loadMedication from "./loadMedication";
 import getAvailableDrones from "./getAvailableDrones";
-import getMedicationByDroneSerialNumber from "./getMedicationByDroneSerialNumber";
+import getMedicationBySerialNumber from "./getMedicationBySerialNumber";
 
 const droneController = {
-  createDrone,
-  loadDroneWithMedication,
+  create,
+  loadMedication,
   getAvailableDrones,
-  getMedicationByDroneSerialNumber,
+  getMedicationBySerialNumber,
 };
 
 export default droneController;

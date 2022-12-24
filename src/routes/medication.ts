@@ -2,12 +2,12 @@ import { Router } from 'express';
 import { droneController } from '../controllers';
 import { MedicationMiddleware } from '../middlewares';
 
-const { loadDroneWithMedication, getMedicationByDroneSerialNumber } = droneController;
+const { loadMedication, getMedicationBySerialNumber } = droneController;
 
 const router = Router();
 
-router.post('/', MedicationMiddleware.inspectCreateMedication, loadDroneWithMedication);
+router.post('/', MedicationMiddleware.inspectCreate, loadMedication);
 router.get('/', MedicationMiddleware.inspectGetMedications);
-router.get('/:droneSerialNumber', getMedicationByDroneSerialNumber);
+router.get('/:droneSerialNumber', getMedicationBySerialNumber);
 
 export default router;

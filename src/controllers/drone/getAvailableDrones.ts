@@ -6,7 +6,7 @@ const { apiResponse, RESPONSE } = Toolbox;
 
 async function getAvailableDrones(req: Request, res: Response) {
   try {
-    const drones = await DroneService.getIdleDrones();
+    const drones = await DroneService.getAvailableDrones();
     return apiResponse(
       'getAvailableDrones',
       res,
@@ -28,7 +28,7 @@ async function getAvailableDrones(req: Request, res: Response) {
       RESPONSE.fail,
       httpCode,
       JSON.stringify(response, Object.getOwnPropertyNames(response)),
-      'creating drone api error'
+      'get available drones api error'
     );
   }
 }

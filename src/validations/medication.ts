@@ -26,7 +26,10 @@ const medication = {
         .required()
         .label('code is required, must be alphanumeric, _ is allowed and must be uppercase.'),
     });
-    const { error }: GenericType = schema.validate(payload, { abortEarly: false, allowUnknown: true });
+    const { error }: GenericType = schema.validate(payload, {
+      abortEarly: false,
+      allowUnknown: true,
+    });
     if (error)
       throw new BaseError(
         'error from the medication validations',

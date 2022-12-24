@@ -9,10 +9,10 @@ async function loadMedication(req: Request, res: Response) {
   try {
     const { name, weight, code } = req.body;
     const drone = await MedicationService.loadMedication({
-     medicationId: uuidv4(),
-     name,
-     weight,
-     code,
+      medicationId: uuidv4(),
+      name,
+      weight,
+      code,
     });
     return apiResponse(
       'loadMedication',
@@ -23,8 +23,8 @@ async function loadMedication(req: Request, res: Response) {
       'drone loaded successfully'
     );
   } catch (error) {
-      const httpCode =
-        error instanceof BaseError ? error.httpCode : HttpStatusCode.INTERNAL_SERVER_ERROR;
+    const httpCode =
+      error instanceof BaseError ? error.httpCode : HttpStatusCode.INTERNAL_SERVER_ERROR;
     const response =
       error instanceof BaseError
         ? error.message || error
@@ -35,7 +35,7 @@ async function loadMedication(req: Request, res: Response) {
       RESPONSE.fail,
       httpCode,
       JSON.stringify(response, Object.getOwnPropertyNames(response)),
-      'creating drone api error'
+      'load medications api error'
     );
   }
 }

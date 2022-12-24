@@ -1,5 +1,3 @@
-import droneController from "./drone";
+import droneController from './drone';
 
-export {
-  droneController,
-}
+export { droneController };

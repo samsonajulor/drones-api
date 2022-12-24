@@ -1,21 +1,20 @@
 import { Request, Response } from 'express';
 import { Toolbox, HttpStatusCode, BaseError } from '../../utils';
-import { MedicationService } from '../../service';
+import { DroneService } from '../../service';
 
 const { apiResponse, RESPONSE } = Toolbox;
 
-async function getMedicationBySerialNumber(req: Request, res: Response) {
+async function checkBatteryLevel(req: Request, res: Response) {
   try {
-    const medicationItems = await MedicationService.getMedicationBySerialNumber(
-      req.params.droneSerialNumber
-    );
+    const { droneSerialNumber } = req.params;
+    const drone = await DroneService.getDroneBySerialNumber(droneSerialNumber);
     return apiResponse(
-      'getMedicationItems',
+      'checkBatteryLevel',
       res,
       RESPONSE.success,
       HttpStatusCode.OK,
-      JSON.stringify(medicationItems),
-      'medication items retrieved successfully'
+      JSON.stringify(drone.battery + '%'),
+      `battery level of drone ${droneSerialNumber} is ${drone.battery}%`
     );
   } catch (error) {
     const httpCode =
@@ -25,14 +24,14 @@ async function getMedicationBySerialNumber(req: Request, res: Response) {
         ? error.message || error
         : 'Some error occurred. Please contact support';
     return apiResponse(
-      'getAvailableDrones',
+      'checkBatteryLevel',
       res,
       RESPONSE.fail,
       httpCode,
       JSON.stringify(response, Object.getOwnPropertyNames(response)),
-      'get medications api error'
+      'check battery level api error'
     );
   }
 }
 
-export default getMedicationBySerialNumber;
+export default checkBatteryLevel;

@@ -14,7 +14,7 @@ const DroneService = {
       throw new BaseError('error from the drone service', error, 'create', httpCode);
     }
   },
-  async getIdleDrones() {
+  async getAvailableDrones() {
     try {
       const idleDrones = await Drone.findAll({
         where: {
@@ -46,7 +46,12 @@ const DroneService = {
       return droneFound;
     } catch (error) {
       const httpCode = error instanceof BaseError ? error.httpCode : 500;
-      throw new BaseError('error from the drone service', error, 'getDroneBySerialNumber', httpCode);
+      throw new BaseError(
+        'error from the drone service',
+        error,
+        'getDroneBySerialNumber',
+        httpCode
+      );
     }
   },
   async updateDroneState(serialNumber: string, state: string) {
@@ -105,8 +110,8 @@ const DroneService = {
           },
           state: {
             [db.Sequelize.Op.or]: ['IDLE', 'LOADING'],
+          },
         },
-      },
       });
       if (!freeDrone)
         throw new BaseError(
@@ -132,4 +137,3 @@ const DroneService = {
 };
 
 export default DroneService;
-    

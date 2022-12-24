@@ -12,7 +12,9 @@ const MedicationMiddleware = {
       next();
     } catch (error) {
       const response =
-        error instanceof BaseError ? error.message || error : 'Some error occurred. Please contact support';
+        error instanceof BaseError
+          ? error.message || error
+          : 'Some error occurred. Please contact support';
       return apiResponse(
         'inspectCreate',
         res,

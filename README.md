@@ -40,7 +40,7 @@
 
 - Add the following validations when creating a medication:
 
-1. the name should only allow letters, numbers, - and _.
+1. the name should only allow letters, numbers, - and \_.
 2. code should only allow uppercase letters, underscore and numbers.
 
 - create the following services:

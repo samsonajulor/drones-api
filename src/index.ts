@@ -56,13 +56,22 @@ app.all('*', (_req, res) => res.status(404).send({ message: 'route not found' })
 
 const server: any = app.listen(process.env.PORT || 3000, async () => {
   await new Promise<void>((resolve, reject) => {
-    const migrate: any = exec('sequelize db:migrate', { env: process.env }, (err) =>
-      err ? reject(err) : resolve()
+    const migrate: any = exec(
+      'sequelize db:migrate',
+      { env: process.env },
+      (err) => (err ? reject(err) : resolve())
+    );
+    const seed: any = exec(
+      'npx sequelize-cli db:seed:all',
+      { env: process.env },
+      (err) => (err ? reject(err) : resolve())
     );
 
     /***Forward stdout+stderr to this process */
     migrate.stdout.pipe(process.stdout);
     migrate.stderr.pipe(process.stderr);
+    seed.stdout.pipe(process.stdout);
+    seed.stderr.pipe(process.stderr);
   });
   const { port } = server.address() as AddressInfo;
   console.log(`Listening on port ${port}`);

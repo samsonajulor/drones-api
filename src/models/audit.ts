@@ -1,7 +1,7 @@
 // Introduce a periodic task to check drones battery levels and create history/audit event log for this
 const audit = (sequelize: any, DataTypes: any): any => {
-  const Audit = sequelize.define(
-    'Audit',
+  const Audits = sequelize.define(
+    'Audits',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -35,10 +35,10 @@ const audit = (sequelize: any, DataTypes: any): any => {
     },
     {}
   );
-  Audit.associate = (models: any): void => {
-    Audit.belongsTo(models.Drone, { foreignKey: 'serialNumber' });
+  Audits.associate = (models: any): void => {
+    Audits.belongsTo(models.Drones, { foreignKey: 'serialNumber' });
   };
-  Audit.init(
+  Audits.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -72,10 +72,10 @@ const audit = (sequelize: any, DataTypes: any): any => {
     },
     {
       sequelize,
-      modelName: 'Audit',
+      modelName: 'Audits',
     }
   );
-  return Audit;
+  return Audits;
 };
 
 module.exports = audit;

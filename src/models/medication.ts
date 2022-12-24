@@ -1,8 +1,8 @@
 import { UUIDV4 } from 'sequelize';
 
 const medication = (sequelize: any, DataTypes: any): any => {
-  const Medication = sequelize.define(
-    'Medication',
+  const Medications = sequelize.define(
+    'Medications',
     {
       medicationId: {
         allowNull: false,
@@ -34,10 +34,10 @@ const medication = (sequelize: any, DataTypes: any): any => {
     {}
   );
 
-  Medication.associate = (models: any): void => {
-    Medication.belongsTo(models.Drone, { foreignKey: 'droneSerialNumber' });
+  Medications.associate = (models: any): void => {
+    Medications.belongsTo(models.Drones, { foreignKey: 'droneSerialNumber' });
   };
-  Medication.init(
+  Medications.init(
     {
       medicationId: {
         allowNull: false,
@@ -68,10 +68,10 @@ const medication = (sequelize: any, DataTypes: any): any => {
     },
     {
       sequelize,
-      modelName: 'Medication',
+      modelName: 'Medications',
     }
   );
-  return Medication;
+  return Medications;
 };
 
 module.exports = medication;

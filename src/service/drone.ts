@@ -2,12 +2,12 @@ import db from '../models';
 import { BaseError } from '../utils';
 import { DroneType } from '../@types';
 
-const { Drone } = db;
+const { Drones } = db;
 
 const DroneService = {
   async create(droneData: DroneType) {
     try {
-      const newDrone = await Drone.create(droneData);
+      const newDrone = await Drones.create(droneData);
       return newDrone;
     } catch (error) {
       const httpCode = error instanceof BaseError ? error.httpCode : 500;
@@ -16,7 +16,7 @@ const DroneService = {
   },
   async getAvailableDrones() {
     try {
-      const idleDrones = await Drone.findAll({
+      const idleDrones = await Drones.findAll({
         where: {
           state: {
             [db.Sequelize.Op.or]: ['IDLE', 'LOADING'],
@@ -31,7 +31,7 @@ const DroneService = {
   },
   async getDroneBySerialNumber(serialNumber: string) {
     try {
-      const droneFound = await Drone.findOne({
+      const droneFound = await Drones.findOne({
         where: {
           serialNumber,
         },
@@ -56,7 +56,7 @@ const DroneService = {
   },
   async updateDroneState(serialNumber: string, state: string) {
     try {
-      const droneFound = await Drone.findOne({
+      const droneFound = await Drones.findOne({
         where: {
           serialNumber,
         },
@@ -79,7 +79,7 @@ const DroneService = {
   },
   async updateDroneBattery(serialNumber: string, battery: number) {
     try {
-      const droneFound = await Drone.findOne({
+      const droneFound = await Drones.findOne({
         where: {
           serialNumber,
         },
@@ -103,7 +103,7 @@ const DroneService = {
   async getFreeDrone(weight: number) {
     try {
       const size = 500 - weight;
-      const freeDrone = await Drone.findOne({
+      const freeDrone = await Drones.findOne({
         where: {
           weight: {
             [db.Sequelize.Op.lte]: size,
@@ -139,7 +139,7 @@ const DroneService = {
   },
   async getAll() {
     try {
-      const drones = await Drone.findAll();
+      const drones = await Drones.findAll();
       return drones;
     } catch (error: any) {
       const httpCode = error instanceof BaseError ? error.httpCode : 500;

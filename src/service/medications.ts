@@ -3,14 +3,14 @@ import { BaseError } from '../utils';
 import { MedicationType } from '../@types';
 import DroneService from './drone';
 
-const { Medication } = db;
+const { Medications } = db;
 
 const MedicationService = {
   async loadMedication(medicationData: MedicationType) {
     try {
       const freeDrone = await DroneService.getFreeDrone(medicationData.weight);
       /** medication can be safely loaded cos there was a weight check by the function above */
-      await Medication.create({
+      await Medications.create({
         ...medicationData,
         droneSerialNumber: freeDrone.serialNumber,
       });
@@ -27,7 +27,7 @@ const MedicationService = {
   },
   async getMedicationBySerialNumber(serialNumber: string) {
     try {
-      const medicationFound = await Medication.findAll({
+      const medicationFound = await Medications.findAll({
         where: {
           droneSerialNumber: serialNumber,
         },

@@ -1,6 +1,6 @@
 const drone = (sequelize: any, DataTypes: any): any => {
-  const Drone = sequelize.define(
-    'Drone',
+  const Drones = sequelize.define(
+    'Drones',
     {
       serialNumber: {
         allowNull: false,
@@ -27,10 +27,10 @@ const drone = (sequelize: any, DataTypes: any): any => {
     },
     {}
   );
-  Drone.associate = (models: any): void => {
-    Drone.hasMany(models.Medication, { foreignKey: 'medicationId' });
+  Drones.associate = (models: any): void => {
+    Drones.hasMany(models.Medications, { foreignKey: 'medicationId' });
   };
-  Drone.init(
+  Drones.init(
     {
       serialNumber: {
         allowNull: false,
@@ -56,10 +56,10 @@ const drone = (sequelize: any, DataTypes: any): any => {
     },
     {
       sequelize,
-      modelName: 'Drone',
+      modelName: 'Drones',
     }
   );
-  return Drone;
+  return Drones;
 };
 
 module.exports = drone;

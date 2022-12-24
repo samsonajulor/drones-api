@@ -8,8 +8,10 @@ import { exec } from 'child_process';
 import cookieParser from 'cookie-parser';
 import { env } from './config';
 import routes from './routes';
+import { droneController } from './controllers';
 
 const production = env.ENV === 'LIVE';
+const { audit } = droneController;
 
 const app = express();
 app.use(cors());
@@ -23,6 +25,9 @@ app.use(express.json());
 app.set('trust proxy', 1);
 
 app.use('/dispatch/v1.0/api', routes);
+
+/**call the audit method every 24hours */
+setInterval(audit, 86400000);
 
 if (!production) {
   app.use(errorhandler());

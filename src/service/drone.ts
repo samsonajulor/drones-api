@@ -111,6 +111,9 @@ const DroneService = {
           state: {
             [db.Sequelize.Op.or]: ['IDLE', 'LOADING'],
           },
+          battery: {
+            [db.Sequelize.Op.gte]: 25,
+          },
         },
       });
       if (!freeDrone)
@@ -132,6 +135,15 @@ const DroneService = {
         'attachMedicationToDrone',
         httpCode
       );
+    }
+  },
+  async getAll() {
+    try {
+      const drones = await Drone.findAll();
+      return drones;
+    } catch (error: any) {
+      const httpCode = error instanceof BaseError ? error.httpCode : 500;
+      throw new BaseError('error from the drone service', error, 'getAll', httpCode);
     }
   },
 };

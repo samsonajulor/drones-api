@@ -11,7 +11,7 @@ const DroneService = {
       const totalDrones = await Drones.count();
       if (totalDrones === 10)
         throw new BaseError(
-          'error from the drone service', 
+          'error from the drone service',
           'The maximum number of drones has been reached. Please delete a drone before creating a new one.',
           'create',
           HttpStatusCode.NOT_ALLOWED
@@ -135,7 +135,9 @@ const DroneService = {
       if (index === -1)
         throw new BaseError(
           'error from the medication service',
-          `Drones should not be overloaded. List of drone weights: ${weights.map((weight: string, index: number) => `Drone ${drones[index].serialNumber}=>${weight}g`)}`,
+          `Drones should not be overloaded. List of drone weights: ${weights.map(
+            (weight: string, index: number) => `Drone ${drones[index].serialNumber}=>${weight}g`
+          )}`,
           'attachMedicationToDrone',
           HttpStatusCode.NOT_ALLOWED
         );
@@ -153,8 +155,11 @@ const DroneService = {
           HttpStatusCode.NOT_ALLOWED
         );
       /**find the first drone with weight less than or equal to size and battery capacity greater than 25 */
-      const freeDrone = drones.find((drone: DroneType) => drone.weight <= size && drone.battery > 25);
-      if (!freeDrone) throw new BaseError(
+      const freeDrone = drones.find(
+        (drone: DroneType) => drone.weight <= size && drone.battery > 25
+      );
+      if (!freeDrone)
+        throw new BaseError(
           'error from the medication service',
           'There are no drones available',
           'attachMedicationToDrone',

@@ -13,7 +13,7 @@ async function getAvailableDrones(req: Request, res: Response) {
       RESPONSE.success,
       HttpStatusCode.OK,
       JSON.stringify(drones),
-      'drones retrieved successfully'
+      `There are ${drones.length} drones available.`
     );
   } catch (error) {
     const httpCode =

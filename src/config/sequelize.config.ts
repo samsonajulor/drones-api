@@ -20,4 +20,12 @@ module.exports = {
     port: env.PROD_DB_PORT,
     dialect: env.PROD_DB_DIALECT,
   },
+  test: {
+    username: env.TEST_DB_USERNAME,
+    password: env.TEST_DB_PASSWORD,
+    database: env.TEST_DB_NAME,
+    host: env.TEST_DB_HOSTNAME,
+    port: env.TEST_DB_PORT,
+    dialect: env.TEST_DB_DIALECT,
+  },
 };

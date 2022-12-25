@@ -14,6 +14,7 @@ export enum HttpStatusCode {
   ALREADY_EXISTS = 403,
   NOT_FOUND = 404,
   INTERNAL_SERVER_ERROR = 500,
+  NOT_ALLOWED = 405,
 }
 
 export type GenericType = {

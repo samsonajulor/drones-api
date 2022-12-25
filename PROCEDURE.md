@@ -1,7 +1,7 @@
 ## TECHNOLOGIES USED
 
 1. Express/Node as servers
-2. POSTGRESQL.
+2. POSTGRESQL as database.
 
 ## STEPS TAKEN
 

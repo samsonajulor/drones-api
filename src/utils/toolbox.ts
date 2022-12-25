@@ -23,7 +23,6 @@ const Tools = {
       status,
       responseCode: responseType ? '00' : '01',
       responseMessage: message,
-      // remove all traces of the string "Error: " from the JSON.parse(data) if it exists or return the JSON.parse(data) as it is
       details: data.includes('Error: ')
         ? JSON.parse(data.replace(/Error: /g, ''))
         : JSON.parse(data),

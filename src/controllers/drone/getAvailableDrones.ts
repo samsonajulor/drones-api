@@ -4,7 +4,7 @@ import { DroneService } from '../../service';
 
 const { apiResponse, RESPONSE } = Toolbox;
 
-async function getAvailableDrones(req: Request, res: Response) {
+async function getAvailableDrones(_req: Request, res: Response) {
   try {
     const drones = await DroneService.getAvailableDrones();
     return apiResponse(

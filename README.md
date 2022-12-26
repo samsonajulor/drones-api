@@ -1,8 +1,8 @@
 # Before Starting
-
+- create a .env file in the root directory and copy the content of .env.sample into it
 ## install external tools
 
-- postgres, pgAdmin, node and npm
+- install postgres, pgAdmin, node@16.18.1 into your local machine
 
 ## install dependencies
 
@@ -10,7 +10,7 @@
 
 ## create database
 
-- run `npx sequelize-cli db:create`
+- run `db:create`
   This would create a dev database called dispatch-controller-dev which can be viewed with pg admin or postgres cli.
 
 # Starting...

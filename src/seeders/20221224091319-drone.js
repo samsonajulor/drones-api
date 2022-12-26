@@ -83,15 +83,6 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-      {
-        serialNumber: '10',
-        model: 'Mavic Pro',
-        weight: 40,
-        battery: 80,
-        state: 'IDLE',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
     ]);
   },
   async down(queryInterface) {

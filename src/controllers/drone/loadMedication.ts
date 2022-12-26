@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { Toolbox, HttpStatusCode, BaseError } from '../../utils';
-import { v4 as uuidv4 } from 'uuid';
 import { MedicationService } from '../../service';
 
 const { apiResponse, RESPONSE } = Toolbox;
@@ -9,7 +8,6 @@ async function loadMedication(req: Request, res: Response) {
   try {
     const { name, weight, code } = req.body;
     const drone = await MedicationService.loadMedication({
-      medicationId: uuidv4(),
       name,
       weight,
       code,

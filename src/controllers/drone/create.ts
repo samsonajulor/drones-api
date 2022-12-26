@@ -2,12 +2,12 @@ import { Request, Response } from 'express';
 import { Toolbox, HttpStatusCode, BaseError } from '../../utils';
 import { DroneService } from '../../service';
 
-const { apiResponse, RESPONSE, generateSerialNumber } = Toolbox;
+const { apiResponse, RESPONSE } = Toolbox;
 
 async function create(req: Request, res: Response) {
   try {
     const { model, battery } = req.body;
-    const serialNumber = generateSerialNumber();
+    const serialNumber = await DroneService.generateSerialNumber();
     const newDrone = await DroneService.create({
       serialNumber,
       model,

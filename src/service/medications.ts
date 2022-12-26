@@ -1,4 +1,5 @@
 import db from '../models';
+import { v4 as uuidv4 } from 'uuid';
 import { BaseError } from '../utils';
 import { MedicationType } from '../@types';
 import DroneService from './drone';
@@ -8,6 +9,7 @@ const { Medications } = db;
 const MedicationService = {
   async loadMedication(medicationData: MedicationType) {
     try {
+      medicationData.medicationId = uuidv4();
       const freeDrone = await DroneService.getFreeDrone(medicationData.weight);
       /** medication can be safely loaded cos there was a weight check by the function above */
       await Medications.create({

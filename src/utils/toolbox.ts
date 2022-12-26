@@ -43,10 +43,6 @@ const Tools = {
     });
   },
 
-  generateSerialNumber(): string {
-    return `REF-${new Date().valueOf()}${Math.floor(10000 + Math.random() * 90000)}`;
-  },
-
   RESPONSE: {
     success: true,
     fail: false,

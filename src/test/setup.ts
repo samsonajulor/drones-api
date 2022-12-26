@@ -1,6 +1,5 @@
 import 'jest';
 
 afterAll((done) => {
-  done()
+  done();
 });
-

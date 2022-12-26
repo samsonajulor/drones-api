@@ -30,7 +30,7 @@ export type DroneType = {
 };
 
 export type MedicationType = {
-  medicationId: string;
+  medicationId?: string;
   droneSerialNumber?: string;
   name: string;
   weight: number;

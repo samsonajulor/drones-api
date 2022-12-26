@@ -158,7 +158,7 @@ const DroneService = {
       const freeDrone = drones.find(
         (drone: DroneType) => drone.weight <= size && drone.battery > 25
       );
-      if (!freeDrone)
+      if (!Object.keys(freeDrone).length)
         throw new BaseError(
           'error from the medication service',
           'There are no drones available',
@@ -185,6 +185,16 @@ const DroneService = {
     } catch (error: any) {
       const httpCode = error instanceof BaseError ? error.httpCode : 500;
       throw new BaseError('error from the drone service', error, 'getAll', httpCode);
+    }
+  },
+  async generateSerialNumber() {
+    try {
+      const drones = await this.getAll();
+      const serialNumber = drones.length + 1;
+      return serialNumber.toString();
+    } catch (error: any) {
+      const httpCode = error instanceof BaseError ? error.httpCode : 500;
+      throw new BaseError('error from the drone service', error, 'generateSerialNumber', httpCode);
     }
   },
 };

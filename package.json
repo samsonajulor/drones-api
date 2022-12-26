@@ -28,6 +28,12 @@
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
       "./src/test/setup.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      ".cache",
+      "public",
+      "!.*.test.ts"
     ]
   },
   "dependencies": {

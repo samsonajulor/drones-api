@@ -115,7 +115,7 @@ const UploadsMiddleware = {
           RESPONSE.fail,
           HttpStatusCode.PAYLOAD_TOO_LARGE,
           JSON.stringify('Missing files'),
-          'file size limit validation failed'
+          'file payload validation failed'
         );
 
       next();
@@ -130,7 +130,7 @@ const UploadsMiddleware = {
         RESPONSE.fail,
         HttpStatusCode.INTERNAL_SERVER_ERROR,
         JSON.stringify(response, Object.getOwnPropertyNames(response)),
-        'file size limit validation failed'
+        'file payload validation failed'
       );
     }
   },

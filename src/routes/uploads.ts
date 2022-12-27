@@ -14,3 +14,5 @@ router.post(
   fileExtLimiter(['.png', '.jpg', '.jpeg']),
   fileSizeLimiter
 );
+
+export default router;

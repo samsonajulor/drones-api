@@ -18,3 +18,6 @@
 ## start the application in dev mode
 
 - run `yarn dev`
+
+# Running the tests
+- run `yarn test`

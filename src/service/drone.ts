@@ -14,7 +14,7 @@ const DroneService = {
           'error from the drone service',
           'The maximum number of drones has been reached. Please delete a drone before creating a new one.',
           'create',
-          HttpStatusCode.NOT_ALLOWED
+          HttpStatusCode.UNPROCESSABLE_ENTITY
         );
       const newDrone = await Drones.create(droneData);
       // await Drones.save(newDrone);
@@ -118,7 +118,7 @@ const DroneService = {
           'error from the medication service',
           'The weight of the medication is too high',
           'attachMedicationToDrone',
-          HttpStatusCode.NOT_ALLOWED
+          HttpStatusCode.UNPROCESSABLE_ENTITY
         );
       const drones = await this.getAvailableDrones();
       if (drones.length === 0)
@@ -139,7 +139,7 @@ const DroneService = {
             (weight: string, index: number) => `Drone ${drones[index].serialNumber}=>${weight}g`
           )}`,
           'attachMedicationToDrone',
-          HttpStatusCode.NOT_ALLOWED
+          HttpStatusCode.UNPROCESSABLE_ENTITY
         );
       /**put the battery capacity of each drone in an array */
       const batteries = drones.map((drone: DroneType) => drone.battery);
@@ -152,7 +152,7 @@ const DroneService = {
             (battery: string, index: number) => `Drone ${drones[index].serialNumber}=>${battery}g`
           )}`,
           'attachMedicationToDrone',
-          HttpStatusCode.NOT_ALLOWED
+          HttpStatusCode.UNPROCESSABLE_ENTITY
         );
       /**find the first drone with weight less than or equal to size and battery capacity greater than 25 */
       const freeDrone = drones.find(

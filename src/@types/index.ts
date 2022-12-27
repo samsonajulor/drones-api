@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 export const applicationJsonType = 'application/json';
 export const applicationXmlType = 'application/xml';
 
@@ -14,7 +16,8 @@ export enum HttpStatusCode {
   ALREADY_EXISTS = 403,
   NOT_FOUND = 404,
   INTERNAL_SERVER_ERROR = 500,
-  NOT_ALLOWED = 405,
+  UNPROCESSABLE_ENTITY = 422,
+  PAYLOAD_TOO_LARGE = 413,
 }
 
 export type GenericType = {
@@ -51,3 +54,8 @@ export type AuditType = {
   state: string;
   medications: string;
 };
+
+export interface UploadsRequest extends Request {
+  file: any;
+  files: any;
+}

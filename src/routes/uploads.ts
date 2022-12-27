@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import fileUpload from 'express-fileupload';
-// import { UploadsController } from '../controllers';
-import { UploadsMiddleware } from '../middlewares';
+import { uploads } from '../controllers';
+import { multerUploads, UploadsMiddleware } from '../middlewares';
 
 const { fileExtLimiter, fileSizeLimiter, filesPayloadExists } = UploadsMiddleware;
 
@@ -9,10 +8,11 @@ const router = Router();
 
 router.post(
   '/',
-  fileUpload({ createParentPath: true }),
+  multerUploads.array('drone-images'),
   filesPayloadExists,
   fileExtLimiter(['.png', '.jpg', '.jpeg']),
-  fileSizeLimiter
+  fileSizeLimiter,
+  uploads
 );
 
 export default router;

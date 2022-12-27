@@ -1,7 +1,6 @@
 import { BaseError } from '../../utils';
 import { AuditService, DroneService, MedicationService } from '../../service';
-import { DroneType } from '../../@types';
-import { AuditType, MedicationType } from '../../@types/index';
+import { AuditType, MedicationType, DroneType } from '../../@types/index';
 import { logger } from '../../config';
 
 async function audit() {

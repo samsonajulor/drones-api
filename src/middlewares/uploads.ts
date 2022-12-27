@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import path from 'path';
-import { BaseError, HttpStatusCode, Toolbox } from '../utils';
-import { UploadsRequest } from '../@types';
+import { HttpStatusCode, Toolbox } from '../utils';
+import { ErrorType, GenericType, UploadsRequest } from '../@types';
+import { logger } from '../config';
 
 const { apiResponse, RESPONSE } = Toolbox;
 
@@ -12,9 +13,8 @@ const UploadsMiddleware = {
         const files = (req as UploadsRequest).files;
 
         const fileExtensions: string[] = [];
-        Object.keys(files).forEach((key) => {
-          fileExtensions.push(path.extname(files[key].name));
-        });
+        files.forEach((file: GenericType) => fileExtensions.push(path.extname(file.originalname)));
+        logger('check fileExtensions', JSON.stringify(fileExtensions));
 
         /** Are the file extension allowed? */
         const allowed = fileExtensions.every((ext) => allowedExtArray.includes(ext));
@@ -36,18 +36,14 @@ const UploadsMiddleware = {
           );
         }
         next();
-      } catch (error) {
-        const response =
-          error instanceof BaseError
-            ? error.message || error
-            : 'Some error occurred. Please contact support';
+      } catch (error: ErrorType) {
         return apiResponse(
           'fileExtLimiter',
           res,
           RESPONSE.fail,
           HttpStatusCode.INTERNAL_SERVER_ERROR,
-          JSON.stringify(response, Object.getOwnPropertyNames(response)),
-          'validation failed'
+          JSON.stringify(error.message),
+          'file extension limit validation failed'
         );
       }
     };
@@ -91,17 +87,13 @@ const UploadsMiddleware = {
       }
 
       next();
-    } catch (error) {
-      const response =
-        error instanceof BaseError
-          ? error.message || error
-          : 'Some error occurred. Please contact support';
+    } catch (error: ErrorType) {
       return apiResponse(
         'fileSizeLimiter',
         res,
         RESPONSE.fail,
         HttpStatusCode.INTERNAL_SERVER_ERROR,
-        JSON.stringify(response, Object.getOwnPropertyNames(response)),
+        JSON.stringify(error.message),
         'file size limit validation failed'
       );
     }
@@ -113,23 +105,19 @@ const UploadsMiddleware = {
           'filesPayloadExists',
           res,
           RESPONSE.fail,
-          HttpStatusCode.PAYLOAD_TOO_LARGE,
+          HttpStatusCode.UNPROCESSABLE_ENTITY,
           JSON.stringify('Missing files'),
           'file payload validation failed'
         );
 
       next();
-    } catch (error) {
-      const response =
-        error instanceof BaseError
-          ? error.message || error
-          : 'Some error occurred. Please contact support';
+    } catch (error: ErrorType) {
       return apiResponse(
         'filesPayloadExists',
         res,
         RESPONSE.fail,
         HttpStatusCode.INTERNAL_SERVER_ERROR,
-        JSON.stringify(response, Object.getOwnPropertyNames(response)),
+        JSON.stringify(error.message),
         'file payload validation failed'
       );
     }

@@ -2,7 +2,11 @@ import { Response } from 'express';
 import { parse } from 'js2xmlparser';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import { logger } from '../config';
-import { applicationJsonType, applicationXmlType, APIResponseType } from '../@types';
+import { applicationJsonType, applicationXmlType, APIResponseType, GenericType } from '../@types';
+import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
+import { cloudinaryConfig } from '../config';
+import BaseError from './baseError';
+import toStream from 'buffer-to-stream';
 
 /**
  * Function for api tools methods
@@ -23,7 +27,7 @@ const Tools = {
       status,
       responseCode: responseType ? '00' : '01',
       responseMessage: message,
-      details: data.includes('Error: ')
+      details: data?.includes('Error: ')
         ? JSON.parse(data.replace(/Error: /g, ''))
         : JSON.parse(data),
     };
@@ -46,6 +50,41 @@ const Tools = {
   RESPONSE: {
     success: true,
     fail: false,
+  },
+  async uploadToCloudinary(
+    file: Express.Multer.File
+  ): Promise<UploadApiResponse | UploadApiErrorResponse> {
+    try {
+      return new Promise((resolve) => {
+        const upload = cloudinaryConfig.v2.uploader.upload_stream(
+          (error: GenericType, result: any) => {
+            if (error)
+              throw new BaseError(
+                'error from the upload to cloudinary util',
+                error,
+                'uploadToCloudinary',
+                500
+              );
+            resolve(
+              result as
+                | UploadApiResponse
+                | UploadApiErrorResponse
+                | Promise<UploadApiResponse | UploadApiErrorResponse>
+            );
+          }
+        );
+
+        toStream(file.buffer).pipe(upload);
+      });
+    } catch (error) {
+      const httpCode = error instanceof BaseError ? error.httpCode : 500;
+      throw new BaseError(
+        'error from the upload to cloudinary util',
+        error,
+        'uploadToCloudinary',
+        httpCode
+      );
+    }
   },
 };
 

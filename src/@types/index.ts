@@ -10,6 +10,8 @@ export type APIResponseType<T = any> = {
   details: T;
 };
 
+export type ErrorType = any;
+
 export enum HttpStatusCode {
   OK = 200,
   BAD_REQUEST = 400,
@@ -23,6 +25,10 @@ export enum HttpStatusCode {
 export type GenericType = {
   [x: string]: any;
 };
+
+export interface GenericInterface {
+  [x: string]: any;
+}
 
 export type DroneType = {
   serialNumber: string;

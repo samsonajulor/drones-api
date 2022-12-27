@@ -4,6 +4,7 @@ import getAvailableDrones from './getAvailableDrones';
 import getMedicationBySerialNumber from './getMedicationBySerialNumber';
 import checkBatteryLevel from './checkBatteryLevel';
 import audit from './audit';
+import uploadImageForMedication from './uploadImageForMedication';
 
 const droneController = {
   create,
@@ -12,6 +13,7 @@ const droneController = {
   getMedicationBySerialNumber,
   checkBatteryLevel,
   audit,
+  uploadImageForMedication,
 };
 
 export default droneController;

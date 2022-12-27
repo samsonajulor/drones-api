@@ -4,7 +4,7 @@ import { AuditType } from '../@types';
 
 const { Audits } = db;
 
-const AuditService = {
+class AuditService {
   async create(auditData: AuditType) {
     try {
       const newAudit = await Audits.create(auditData);
@@ -13,7 +13,7 @@ const AuditService = {
       const httpCode = error instanceof BaseError ? error.httpCode : 500;
       throw new BaseError('error from the audit service', error, 'create', httpCode);
     }
-  },
+  }
 };
 
-export default AuditService;
+export default new AuditService();

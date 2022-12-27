@@ -67,7 +67,7 @@ module.exports = {
       },
       {
         serialNumber: '8',
-        model: 'Mavic Automatic',
+        model: 'Climax Automatic',
         weight: 40,
         battery: 80,
         state: 'IDLE',
@@ -76,7 +76,7 @@ module.exports = {
       },
       {
         serialNumber: '9',
-        model: 'Mavic 349',
+        model: 'Mavic Bomber Jacket',
         weight: 40,
         battery: 80,
         state: 'IDLE',

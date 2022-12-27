@@ -1,12 +1,15 @@
 import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
 import { Request, Response } from 'express';
-import { UploadsRequest, ErrorType } from '../@types';
-import { Toolbox, HttpStatusCode, BaseError } from '../utils';
+import { UploadsRequest } from '../../@types';
+import { Toolbox, HttpStatusCode, BaseError } from '../../utils';
+import { MedicationService } from '../../service';
 
 const { apiResponse, RESPONSE, uploadToCloudinary } = Toolbox;
+const { updateMedicationImage } = MedicationService;
 
-async function uploads(req: Request, res: Response) {
+async function uploadImageForMedication(req: Request, res: Response) {
   try {
+    const { medicationId } = req.query;
     const files = (req as UploadsRequest).files;
     console.log(files);
     const result: Array<UploadApiResponse | UploadApiErrorResponse> = [];
@@ -14,6 +17,11 @@ async function uploads(req: Request, res: Response) {
     for await (const file of files) {
       result.push(await uploadToCloudinary(file));
     }
+
+    await updateMedicationImage(
+      medicationId as string,
+      result.map((data) => data.url)
+    );
 
     return apiResponse(
       'uploads',
@@ -23,19 +31,22 @@ async function uploads(req: Request, res: Response) {
       JSON.stringify(result.map((data) => data.url)),
       'file uploaded successfully'
     );
-  } catch (error: ErrorType) {
-    console.log(error);
+  } catch (error) {
     const httpCode =
       error instanceof BaseError ? error.httpCode : HttpStatusCode.INTERNAL_SERVER_ERROR;
+    const response =
+      error instanceof BaseError
+        ? error.message || error
+        : 'Some error occurred. Please contact support';
     return apiResponse(
-      'uploads',
+      'uploadImageForMedication',
       res,
       RESPONSE.fail,
       httpCode,
-      JSON.stringify(error),
+      JSON.stringify(response, Object.getOwnPropertyNames(response)),
       'uploads api error'
     );
   }
 }
 
-export default uploads;
+export default uploadImageForMedication;

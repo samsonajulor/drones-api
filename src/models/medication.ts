@@ -28,7 +28,7 @@ const medication = (sequelize: any, DataTypes: any): any => {
       },
       image: {
         allowNull: true,
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
     },
     {}
@@ -63,7 +63,7 @@ const medication = (sequelize: any, DataTypes: any): any => {
       },
       image: {
         allowNull: true,
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
     },
     {

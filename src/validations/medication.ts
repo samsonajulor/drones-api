@@ -39,12 +39,12 @@ const medication = {
       );
     return true;
   },
-  async getMedicationItems(payload: GetMedicationType) {
+  async getMedication(payload: GetMedicationType) {
     const schema = joi.object({
-      droneSerialNumber: joi
+      medicationId: joi
         .string()
         .required()
-        .label('droneId is required. must be a valid droneId'),
+        .label('medicationId is required. must be a valid medicationId'),
     });
     const { error }: GenericType = schema.validate(payload, {
       abortEarly: false,

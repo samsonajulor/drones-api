@@ -48,7 +48,7 @@ export type MedicationType = {
 };
 
 export type GetMedicationType = {
-  droneSerialNumber: string;
+  medicationId: string;
 };
 
 export type AuditType = {

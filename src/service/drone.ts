@@ -4,7 +4,7 @@ import { DroneType, HttpStatusCode } from '../@types';
 
 const { Drones } = db;
 
-const DroneService = {
+class DroneService {
   async create(droneData: DroneType) {
     try {
       /**do not create a new drone if the total number of drones are up to ten */
@@ -23,7 +23,7 @@ const DroneService = {
       const httpCode = error instanceof BaseError ? error.httpCode : 500;
       throw new BaseError('error from the drone service', error, 'create', httpCode);
     }
-  },
+  }
   async getAvailableDrones() {
     try {
       const idleDrones = await Drones.findAll({
@@ -38,7 +38,7 @@ const DroneService = {
       const httpCode = error instanceof BaseError ? error.httpCode : 500;
       throw new BaseError('error from the drone service', error, 'getIdleDrones', httpCode);
     }
-  },
+  }
   async getDroneBySerialNumber(serialNumber: string) {
     try {
       const droneFound = await Drones.findOne({
@@ -63,21 +63,10 @@ const DroneService = {
         httpCode
       );
     }
-  },
+  }
   async updateDroneState(serialNumber: string, state: string) {
     try {
-      const droneFound = await Drones.findOne({
-        where: {
-          serialNumber,
-        },
-      });
-      if (!droneFound)
-        throw new BaseError(
-          'error from the drone service',
-          'Drone not found',
-          'updateDroneState',
-          404
-        );
+      const droneFound = await this.getDroneBySerialNumber(serialNumber);
       await droneFound.update({
         state,
       });
@@ -86,21 +75,10 @@ const DroneService = {
       const httpCode = error instanceof BaseError ? error.httpCode : 500;
       throw new BaseError('error from the drone service', error, 'updateDroneState', httpCode);
     }
-  },
+  }
   async updateDroneBattery(serialNumber: string, battery: number) {
     try {
-      const droneFound = await Drones.findOne({
-        where: {
-          serialNumber,
-        },
-      });
-      if (!droneFound)
-        throw new BaseError(
-          'error from the drone service',
-          'Drone not found',
-          'updateDroneBattery',
-          404
-        );
+      const droneFound = await this.getDroneBySerialNumber(serialNumber);
       await droneFound.update({
         battery,
       });
@@ -109,7 +87,7 @@ const DroneService = {
       const httpCode = error instanceof BaseError ? error.httpCode : 500;
       throw new BaseError('error from the drone service', error, 'updateDroneBattery', httpCode);
     }
-  },
+  }
   async getFreeDrone(weight: number) {
     try {
       const size = 500 - weight;
@@ -177,7 +155,7 @@ const DroneService = {
         httpCode
       );
     }
-  },
+  }
   async getAll() {
     try {
       const drones = await Drones.findAll();
@@ -186,7 +164,7 @@ const DroneService = {
       const httpCode = error instanceof BaseError ? error.httpCode : 500;
       throw new BaseError('error from the drone service', error, 'getAll', httpCode);
     }
-  },
+  }
   async generateSerialNumber() {
     try {
       const drones = await this.getAll();
@@ -196,7 +174,7 @@ const DroneService = {
       const httpCode = error instanceof BaseError ? error.httpCode : 500;
       throw new BaseError('error from the drone service', error, 'generateSerialNumber', httpCode);
     }
-  },
+  }
 };
 
-export default DroneService;
+export default new DroneService();

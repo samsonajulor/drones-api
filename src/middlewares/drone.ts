@@ -20,7 +20,7 @@ const DroneMiddleware = {
         RESPONSE.fail,
         HttpStatusCode.INTERNAL_SERVER_ERROR,
         JSON.stringify(response, Object.getOwnPropertyNames(response)),
-        'validation failed'
+        'create drone validation failed'
       );
     }
   },

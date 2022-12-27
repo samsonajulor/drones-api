@@ -1,5 +1,7 @@
 # Before Starting
+
 - create a .env file in the root directory and copy the content of .env.sample into it
+
 ## install external tools
 
 - install postgres, pgAdmin, node@16.18.1 into your local machine
@@ -20,4 +22,5 @@
 - run `yarn dev`
 
 # Running the tests
+
 - run `yarn test`

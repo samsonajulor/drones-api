@@ -6,7 +6,7 @@ import { UploadsRequest } from '../@types';
 const { apiResponse, RESPONSE } = Toolbox;
 
 const UploadsMiddleware = {
-  async fileExtLimiter(allowedExtArray: string[]) {
+  fileExtLimiter(allowedExtArray: string[]) {
     return (req: Request, res: Response, next: NextFunction) => {
       try {
         const files = (req as UploadsRequest).files;
@@ -52,7 +52,7 @@ const UploadsMiddleware = {
       }
     };
   },
-  async fileSizeLimiter(req: Request, res: Response, next: NextFunction) {
+  fileSizeLimiter(req: Request, res: Response, next: NextFunction) {
     try {
       const MB = 5;
       const FILE_SIZE_LIMIT = MB * 1024 * 1024;
@@ -106,16 +106,17 @@ const UploadsMiddleware = {
       );
     }
   },
-  async filesPayloadExists(req: Request, res: Response, next: NextFunction) {
+  filesPayloadExists(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!(req as UploadsRequest).files) return apiResponse(
-        'filesPayloadExists',
-        res,
-        RESPONSE.fail,
-        HttpStatusCode.PAYLOAD_TOO_LARGE,
-        JSON.stringify('Missing files'),
-        'file size limit validation failed'
-      );
+      if (!(req as UploadsRequest).files)
+        return apiResponse(
+          'filesPayloadExists',
+          res,
+          RESPONSE.fail,
+          HttpStatusCode.PAYLOAD_TOO_LARGE,
+          JSON.stringify('Missing files'),
+          'file size limit validation failed'
+        );
 
       next();
     } catch (error) {

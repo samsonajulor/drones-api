@@ -41,7 +41,7 @@ const UploadsMiddleware = {
           'fileExtLimiter',
           res,
           RESPONSE.fail,
-          HttpStatusCode.INTERNAL_SERVER_ERROR,
+          HttpStatusCode.BAD_REQUEST,
           JSON.stringify(error.message),
           'file extension limit validation failed'
         );
@@ -92,7 +92,7 @@ const UploadsMiddleware = {
         'fileSizeLimiter',
         res,
         RESPONSE.fail,
-        HttpStatusCode.INTERNAL_SERVER_ERROR,
+        HttpStatusCode.BAD_REQUEST,
         JSON.stringify(error.message),
         'file size limit validation failed'
       );
@@ -100,7 +100,8 @@ const UploadsMiddleware = {
   },
   filesPayloadExists(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!(req as UploadsRequest).files)
+      console.log(Object.keys(req.files as GenericType)[0], 'files');
+      if (!(req as UploadsRequest).files.length)
         return apiResponse(
           'filesPayloadExists',
           res,
@@ -109,14 +110,13 @@ const UploadsMiddleware = {
           JSON.stringify('Missing files'),
           'file payload validation failed'
         );
-
       next();
     } catch (error: ErrorType) {
       return apiResponse(
         'filesPayloadExists',
         res,
         RESPONSE.fail,
-        HttpStatusCode.INTERNAL_SERVER_ERROR,
+        HttpStatusCode.BAD_REQUEST,
         JSON.stringify(error.message),
         'file payload validation failed'
       );

@@ -4,7 +4,8 @@ import { MedicationMiddleware, UploadsMiddleware, multerUploads } from '../middl
 
 const { loadMedication, getMedicationBySerialNumber, uploadImageForMedication } = droneController;
 const { inspectCreate, inspectGetMedication } = MedicationMiddleware;
-const { fileExtLimiter, fileSizeLimiter, filesPayloadExists } = UploadsMiddleware;
+const { fileExtLimiter, fileSizeLimiter, filesPayloadExists } =
+  UploadsMiddleware;
 
 const router = Router();
 

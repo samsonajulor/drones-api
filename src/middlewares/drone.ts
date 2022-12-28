@@ -10,6 +10,8 @@ const DroneMiddleware = {
       await droneValidations.addNewDrone(req.body);
       next();
     } catch (error) {
+    const httpCode =
+      error instanceof BaseError ? error.httpCode : HttpStatusCode.INTERNAL_SERVER_ERROR;
       const response =
         error instanceof BaseError
           ? error.message || error
@@ -18,7 +20,7 @@ const DroneMiddleware = {
         'inspectCreate',
         res,
         RESPONSE.fail,
-        HttpStatusCode.INTERNAL_SERVER_ERROR,
+        httpCode,
         JSON.stringify(response, Object.getOwnPropertyNames(response)),
         'create drone validation failed'
       );

@@ -63,6 +63,7 @@ const drone = {
         .integer()
         .positive()
         .less(101)
+        .allow(0)
         .required()
         .label('battery is required. Should be a positive integer <= 100.'),
     });

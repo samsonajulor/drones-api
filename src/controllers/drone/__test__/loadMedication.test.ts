@@ -1,6 +1,6 @@
 import { expect } from '@jest/globals';
 import request from 'supertest';
-import { DroneType } from '../../../../@types';
+import { DroneType } from '../../../@types';
 import server from '../../../app';
 import { DroneService } from '../../../service';
 

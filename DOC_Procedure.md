@@ -5,7 +5,7 @@
 
 ## STEPS TAKEN
 
-- create a drone entity with the following fields:
+- **create a drone entity with the following fields:**
 
 ```
 {
@@ -27,7 +27,7 @@
 5. state should have the following strings as default values:
    ("IDLE", "LOADING", "LOADED", "DELIVERING", "DELIVERED", "RETURNING")
 
-- create a medication entity with the following fields:
+- **create a medication entity with the following fields:**
 
 ```
 {
@@ -43,12 +43,15 @@
 1. the name should only allow letters, numbers, - and \_.
 2. code should only allow uppercase letters, underscore and numbers.
 
+- **create an audit entity for logging the state, battery etc of a drone**
+
 - create the following services:
 
 1. adding a new drone to existing drones.
 2. adding medication items to a drone. The maximum weight is 500grams
 3. get medication items for a drone. It should take in the drone id/serialNumber.
 4. get available drones.
+5. audit service that checks the drones every 24hours and saves the log into the database.
 
 # todo list
 

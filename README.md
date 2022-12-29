@@ -21,6 +21,8 @@
 
 - run `yarn dev`
 
+  This would run the migration and seeder files and then start up the application
+
 # Running the tests
 
 - run `yarn test`
@@ -35,3 +37,6 @@ Read the postman documentation [Here!](https://documenter.getpostman.com/view/18
 4. [Validate Model Input](./src/test/checkModel.test.ts)
 5. [Check Number of Drones](./src/test/checkNumberOfDrones.test.ts)
 6. [Validate Loading Medication](./src/test/validateLoadingMedication.test.ts)
+
+# ERD
+![Entity Relation Diagram](./ERD.png)
